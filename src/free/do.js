@@ -10,7 +10,7 @@ const doʹ = gen => Free.Impure(cauchy, () => {
                 ? result.value
                 : result.value.chain(step);
           };
-    return step;
+    return step();
 });
 
 const ofʹ = Free.of;

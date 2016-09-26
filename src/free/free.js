@@ -1,9 +1,9 @@
 'use strict';
 
-const {taggedSum} = require('../cata');
+const { taggedSum } = require('../cata');
 
-const Free = taggedSum({ Impure: ['x', 'f']
-                       , Pure: ['x']
+const Free = taggedSum({ Impure : ['x', 'f']
+                       , Pure   : ['x']
                        });
 
 Free.of = Free.Pure;
@@ -35,17 +35,14 @@ Free.prototype.chain = function(f) {
 const cauchy = {};
 
 Free.prototype.foldMap = function(interpreter, of) {
-    this.cata({ Pure: a => of(a)
-              , Impure: (arg, next) => {
-                  return arg === cauchy
-                    ? next().foldMap(interpreter, of)
-                    : interpreter(arg).chain(result =>
-                        next(result).foldMap(interpreter, of))
-                }
-              });
+    return this.cata({ Pure: a => of(a)
+                     , Impure: (arg, next) => {
+                        return arg === cauchy
+                            ? next().foldMap(interpreter, of)
+                            : interpreter(arg).chain(result =>
+                                next(result).foldMap(interpreter, of))
+                     }});
 };
-
-
 
 const liftF = x => Free.Impure(x, Free.Pure);
 

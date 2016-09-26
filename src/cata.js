@@ -1,5 +1,7 @@
 'use strict';
 
+const { constant } = require('./combinators');
+
 function getInstance(self, constructor) {
     return self instanceof constructor ? self : Object.create(constructor.prototype);
 }
@@ -13,6 +15,11 @@ function tagged(...args) {
 
         for (let i = 0; i < args.length; i++)
             self[args[i]] = argsʹ[i];
+
+        self.toString = () => {
+            const values = args.map(y => `'${y.toString()}'`);
+            return `(${values.join(',')})`;
+        };
 
         return self;
     };
@@ -46,13 +53,13 @@ function taggedSum(constructors) {
 
     for (let key in constructors) {
         if (!constructors[key].length) {
-            definitions[key] = make(key);
+            definitions[key] = makeProto(key);
+            definitions[key].toString = constant('()');
             continue;
         }
         const ctor = tagged.apply(null, constructors[key]);
         definitions[key] = ctor;
-        definitions[key].prototype = make(key);
-        definitions[key].prototype.constructor = ctor;
+        definitions[key].prototype = makeProto(key);
     }
 
     return definitions;

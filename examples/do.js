@@ -2,27 +2,34 @@
 
 const { doʹ, ofʹ } = require('../src/free/do'),
       { dispatch } = require('../src/free/interpret'),
-      { Maybe, Just, Nothing } = require('../src/free/maybe'),
+      { Just, Nothing } = require('../src/free/maybe'),
 
       { tagged } = require('../src/cata'),
-      { identity } = require('../src/combinators');
+      { identity } = require('../src/combinators'),
 
-const Task = tagged('fork');
+      Maybe = require('../src/maybe');
 
-Task.of = x => Task(f => f(x));
-Task.empty = () => Task(identity);
+const error = () => { throw new TypeError('Expected Just'); }
 
-Task.prototype.fold = function(f, g) {
-    return Task(res => {
-        return this.fork(a => res(f(a)));
+const IOTask = tagged('unsafePerform');
+
+IOTask.of = x => IOTask(f => f(x));
+IOTask.prototype.fold = function(f) {
+    const fork = this.unsafePerform;
+    return IOTask(res => {
+        return fork(a => res(f(a)));
     });
 };
 
 const app = doʹ(function *() {
-    const maybeNumber = yield Just(2);
-    return ofʹ(maybeNumber);
-})
+    const a = yield Just(1);
+    const b = yield Just(2);
+    return ofʹ(a + b);
+});
 
-const runApp = dispatch([ [Maybe, m => m.fold(Task.of, console.log)] ]);
+const NTMaybeToIOTask = m => m.fold(IOTask.of, error);
 
-app.foldMap(runApp, Task.of).fork(console.log);
+const runApp = dispatch([ [Maybe, NTMaybeToIOTask ] ]);
+
+app.foldMap(runApp, IOTask.of).unsafePerform(console.log);
+app.foldMap(runApp, IOTask.of).unsafePerform(console.log);
