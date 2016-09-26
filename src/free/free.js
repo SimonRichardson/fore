@@ -37,10 +37,12 @@ const cauchy = {};
 Free.prototype.foldMap = function(interpreter, of) {
     return this.cata({ Pure: a => of(a)
                      , Impure: (arg, next) => {
-                        return arg === cauchy
-                            ? next().foldMap(interpreter, of)
-                            : interpreter(arg).chain(result =>
-                                next(result).foldMap(interpreter, of))
+                        if (arg === cauchy) {
+                            return next().foldMap(interpreter, of);
+                        }
+                        return interpreter(arg).chain(result => {
+                            return next(result).foldMap(interpreter, of)
+                        });
                      }});
 };
 

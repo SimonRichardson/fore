@@ -17,7 +17,7 @@ function tagged(...args) {
             self[args[i]] = argsʹ[i];
 
         self.toString = () => {
-            const values = args.map(y => `'${y.toString()}'`);
+            const values = args.map(y => `'${y.toString()}':'${self[y]}'`);
             return `(${values.join(',')})`;
         };
 

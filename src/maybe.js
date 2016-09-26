@@ -16,15 +16,11 @@ Maybe.prototype.fold = function(f, g) {
 };
 
 Maybe.prototype.map = function(f) {
-    return this.cata({ Just         : x => Maybe.Just(f(x))
-                     , Nothing      : () => Maybe.Nothing
-                     });
+    return this.chain(a => Maybe.of(f(a)));
 };
 
 Maybe.prototype.chain = function(f) {
-    return this.cata({ Just         : x => f(x)
-                     , Nothing      : () => Maybe.Nothing
-                     });
+    return this.fold(a => f(a), () => Maybe.empty);
 };
 
 module.exports = Maybe;

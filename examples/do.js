@@ -1,12 +1,14 @@
 'use strict';
 
-const { doʹ, ofʹ } = require('../src/free/do'),
-      { dispatch } = require('../src/free/interpret'),
+const { doʹ, ofʹ }      = require('../src/free/do'),
+      { dispatch }      = require('../src/free/interpret'),
       { Just, Nothing } = require('../src/free/maybe'),
 
-      { tagged } = require('../src/cata'),
+      { tagged }   = require('../src/cata'),
       { identity } = require('../src/combinators'),
 
+      IO    = require('../src/free/io'),
+      IOʹ   = require('../src/io'),
       Maybe = require('../src/maybe');
 
 const error = () => { throw new TypeError('Expected Just'); }
@@ -28,13 +30,14 @@ IOTask.prototype.chain = function(f) {
 };
 
 const app = doʹ(function *() {
-    const a = yield Just(1);
+    const a = yield IO(() => 1);
     const b = yield Just(2);
-    return ofʹ(a + b);
+    const c = yield Just(3);
+    return ofʹ(a + b + c);
 });
 
-const NT = m => m.fold(IOTask.of, error);
-
-const runApp = dispatch([ [Maybe, NT] ]);
+const runApp = dispatch([ [IOʹ,   io => IOTask(res => res(io.unsafePerform())) ]
+                        , [Maybe, m  => m.fold(IOTask.of, error)]
+                        ]);
 
 app.foldMap(runApp, IOTask.of).unsafePerform(console.log);
