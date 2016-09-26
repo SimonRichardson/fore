@@ -8,8 +8,8 @@ const Free = taggedSum({ Impure : ['x', 'f']
 
 Free.of = Free.Pure;
 
-Free.prototype.fold = function(f, g) {
-    return this.x.fold(f, g);
+Free.prototype.fold = function(...args) {
+    return this.x.fold.apply(this.x, args);
 };
 
 Free.prototype.map = function(f) {
@@ -28,7 +28,7 @@ const kleisli = (f, g) => x => f(x).chain(g);
 
 Free.prototype.chain = function(f) {
     return this.cata({ Impure: (x, g) => Free.Impure(x, kleisli(g, f))
-                     , Pure: f
+                     , Pure: x => f(x)
                      });
 };
 

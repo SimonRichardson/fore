@@ -15,9 +15,15 @@ const IOTask = tagged('unsafePerform');
 
 IOTask.of = x => IOTask(f => f(x));
 IOTask.prototype.fold = function(f) {
-    const fork = this.unsafePerform;
     return IOTask(res => {
-        return fork(a => res(f(a)));
+        return this.unsafePerform(a => res(f(a)));
+    });
+};
+IOTask.prototype.chain = function(f) {
+    return IOTask(res => {
+        return this.unsafePerform(a => {
+            return f(a).unsafePerform(res);
+        });
     });
 };
 
@@ -27,9 +33,8 @@ const app = doʹ(function *() {
     return ofʹ(a + b);
 });
 
-const NTMaybeToIOTask = m => m.fold(IOTask.of, error);
+const NT = m => m.fold(IOTask.of, error);
 
-const runApp = dispatch([ [Maybe, NTMaybeToIOTask ] ]);
+const runApp = dispatch([ [Maybe, NT] ]);
 
-app.foldMap(runApp, IOTask.of).unsafePerform(console.log);
 app.foldMap(runApp, IOTask.of).unsafePerform(console.log);

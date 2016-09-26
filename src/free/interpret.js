@@ -15,7 +15,8 @@ const dispatch = pairs => arg => {
     const interperter = find(pairs, xs => {
         return arg.constructor === xs[0];
     });
-    return interperter.map(args => args[1](arg));
+    const result = interperter.map(args => args[1](arg));
+    return result.fold(x => x, () => {throw new Error("FUCKED")});
 };
 
 module.exports = { dispatch };

@@ -1,11 +1,16 @@
 'use strict';
 
 const { liftF } = require('./free'),
-      Maybe = require('../maybe');
+      Maybeʹ    = require('../maybe');
 
-const Just = x => liftF(Maybe.Just(x)),
-      Nothing = x => liftF(Maybe.Nothing);
+const Just = x => liftF(Maybeʹ.Just(x)),
+      Nothing = () => liftF(Maybeʹ.Nothing);
 
-module.exports = { Just
+const Maybe = { of: Just
+               , empty: Nothing
+               };
+
+module.exports = { Maybe
+                 , Just
                  , Nothing
                  };
