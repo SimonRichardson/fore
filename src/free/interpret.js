@@ -13,9 +13,9 @@ const find = (xs, f) => {
 
 const dispatch = pairs => arg => {
     const interperter = find(pairs, xs => {
-        return arg.constructor === xs[0];
+        return arg.constructor === xs._1;
     });
-    return interperter.fold(args => args[1](arg), () => { throw new Error("FUCK") });
+    return interperter.fold(pair => pair._2(arg), () => { throw new Error('Runtime error!') });
 };
 
 module.exports = { dispatch };

@@ -6,6 +6,7 @@ const { doʹ, ofʹ }      = require('../src/free/do'),
 
       { tagged }   = require('../src/cata'),
       { identity } = require('../src/combinators'),
+      { tuple2 }   = require('../src/tuple'),
 
       IO    = require('../src/free/io'),
       IOʹ   = require('../src/io'),
@@ -36,8 +37,8 @@ const app = doʹ(function *() {
     return ofʹ(a + b + c);
 });
 
-const runApp = dispatch([ [IOʹ,   io => IOTask(res => res(io.unsafePerform())) ]
-                        , [Maybe, m  => m.fold(IOTask.of, error)]
+const runApp = dispatch([ tuple2(IOʹ,   io => IOTask(res => res(io.unsafePerform())))
+                        , tuple2(Maybe, m  => m.fold(IOTask.of, error))
                         ]);
 
 app.foldMap(runApp, IOTask.of).unsafePerform(console.log);

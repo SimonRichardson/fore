@@ -7,8 +7,8 @@ const Just = x => liftF(Maybeʹ.Just(x)),
       Nothing = () => liftF(Maybeʹ.Nothing);
 
 const Maybe = { of: Just
-               , empty: Nothing
-               };
+              , empty: Nothing
+              };
 
 module.exports = { Maybe
                  , Just
