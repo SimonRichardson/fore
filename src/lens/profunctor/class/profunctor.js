@@ -1,9 +1,9 @@
 'use strict';
 
-const { compose, identity }   = require('../../../combinators'),
-      { isFunction }          = require('../../../helpers'),
-      { identity : id }       = require('../category'),
-      { curry }               = require('../../../curry');
+const { compose, identity } = require('../../../combinators'),
+      { isFunction }        = require('../../../helpers'),
+      { identity : id }     = require('../category'),
+      { curry }             = require('../../../curry');
 
 // dimap :: Profunctor p => (a -> b) -> (c -> d) -> p b c -> p a b
 const dimap = curry((a2b, c2d, pbc) => {

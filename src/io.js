@@ -2,7 +2,7 @@
 
 const { tagged } = require('./cata');
 
-const IO = tagged(['unsafePerform']);
+const IO = tagged('unsafePerform');
 
 IO.of = x => IO(() => x);
 

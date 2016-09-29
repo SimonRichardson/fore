@@ -7,6 +7,7 @@ const Maybe = taggedSum({ Just      : ['x']
                         });
 
 Maybe.of = Maybe.Just;
+
 Maybe.empty = () => Maybe.Nothing;
 
 Maybe.prototype.fold = function(f, g) {
