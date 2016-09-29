@@ -14,4 +14,5 @@ IO.prototype.map = function(f) {
     return this.chain(a => IO.of(f(a)));
 };
 
-module.exports = IO;
+module.exports = { IO
+                 };

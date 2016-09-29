@@ -23,4 +23,5 @@ Maybe.prototype.chain = function(f) {
     return this.fold(a => f(a), () => Maybe.empty);
 };
 
-module.exports = Maybe;
+module.exports = { Maybe
+                 };

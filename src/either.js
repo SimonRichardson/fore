@@ -22,4 +22,5 @@ Either.prototype.chain = function(f) {
     return this.fold(Either.Left, x => Either.of(f(x)));
 };
 
-module.exports = Either;
+module.exports = { Either
+                 };

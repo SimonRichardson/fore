@@ -6,6 +6,14 @@ const { tagged }   = require('./cata'),
 
 const Tuple = tagged('_1', '_2');
 
+Tuple.prototype.first = function() {
+    return this._1;
+};
+
+Tuple.prototype.second = function() {
+    return this._2;
+};
+
 Tuple.prototype.dimap = function(f, g) {
     return Tuple(f(this._1), g(this._2));
 };
