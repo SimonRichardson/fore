@@ -1,29 +1,7 @@
 'use strict';
 
-const { constant } = require('./combinators');
-
-function getInstance(self, constructor) {
-    return self instanceof constructor ? self : Object.create(constructor.prototype);
-}
-
-function tagged(...args) {
-    return function wrapped(...argsʹ) {
-        const self = getInstance(this, wrapped);
-
-        if (argsʹ.length != args.length)
-            throw new TypeError(`Expected ${args.length} arguments, got ${argsʹ.length}`);
-
-        for (let i = 0; i < args.length; i++)
-            self[args[i]] = argsʹ[i];
-
-        self.toString = () => {
-            const values = args.map(y => `'${y.toString()}':'${self[y]}'`);
-            return `(${values.join(',')})`;
-        };
-
-        return self;
-    };
-}
+const { constant } = require('./combinators'),
+      { tagged }   = require('./tagged');
 
 function taggedSum(constructors) {
     function definitions() {
@@ -65,6 +43,5 @@ function taggedSum(constructors) {
     return definitions;
 }
 
-module.exports = { tagged
-                 , taggedSum
+module.exports = { taggedSum
                  };

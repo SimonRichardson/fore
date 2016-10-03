@@ -1,7 +1,7 @@
 'use strict';
 
-const { tagged }            = require('../../cata'),
-      { compose, identity } = require('../../../combinators');
+const { tagged }            = require('../tagged'),
+      { compose, identity } = require('../combinators');
 
 const Endo = tagged('x');
 

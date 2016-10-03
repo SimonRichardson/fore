@@ -1,6 +1,6 @@
 'use strict';
 
-const { tagged } = require('../../cata');
+const { tagged } = require('../tagged');
 
 const Dual = M => {
     const Dual = tagged('x');

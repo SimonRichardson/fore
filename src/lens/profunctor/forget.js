@@ -1,9 +1,9 @@
 'use strict';
 
-const { compose, identity } = require('../../../combinators'),
-      { tagged }            = require('../../cata'),
-      { Either, either }    = require('../../either'),
-      { Const }             = require('./../const');
+const { compose }        = require('../../compose'),
+      { tagged }         = require('../../tagged'),
+      { Either, either } = require('../../either'),
+      { Const }          = require('../../const');
 
 const Forget = M => {
     const Forget = tagged('x');

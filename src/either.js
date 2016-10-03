@@ -1,7 +1,7 @@
 'use strict';
 
-const { taggedSum } = require('./cata'),
-      { curry }     = require('./curry')
+const { taggedSum } = require('./taggedsum'),
+      { curry }     = require('./curry'),
       { isNull }    = require('./helpers');
 
 const Either = taggedSum({ Left  : ['x']
@@ -22,6 +22,14 @@ Either.prototype.map = function(f) {
 
 Either.prototype.chain = function(f) {
     return this.fold(Either.Left, x => Either.of(f(x)));
+};
+
+Either.prototype.left = function() {
+    return this.x;
+};
+
+Either.prototype.right = function() {
+    return this.x;
 };
 
 const either = curry((l, r) => isNull(r) ? Either.Left(l) : Either.Right(r));

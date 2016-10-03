@@ -1,6 +1,6 @@
 'use strict';
 
-const { tagged } = require('../../cata'),
+const { tagged } = require('../../tagged'),
       { dimap }  = require('./class/profunctor');
 
 const Re = tagged('x');

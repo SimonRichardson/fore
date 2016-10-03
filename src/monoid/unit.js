@@ -1,6 +1,6 @@
 'use strict';
 
-const { tagged } = require('../../cata');
+const { tagged } = require('../tagged');
 
 const Unit = tagged('x');
 

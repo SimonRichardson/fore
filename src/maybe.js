@@ -1,6 +1,6 @@
 'use strict';
 
-const { taggedSum } = require('./cata');
+const { taggedSum } = require('./taggedsum');
 
 const Maybe = taggedSum({ Just      : ['x']
                         , Nothing   : []

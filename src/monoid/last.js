@@ -1,7 +1,7 @@
 'use strict';
 
-const { tagged } = require('../../cata'),
-      { Maybe }  = require('../../../maybe');
+const { tagged } = require('../tagged'),
+      { Maybe }  = require('../maybe');
 
 
 const Last = tagged('x')
