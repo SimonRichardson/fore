@@ -12,7 +12,8 @@ const { curry }          = require('../curry'),
       { Unit }           = require('../monoid/unit'),
       { tuple2 }         = require('../tuple');
 
-const prism = curry((to, from, pab) => dimap( from, (e => e.value)
+const prism = curry((to, from, pab) => dimap( from
+                                            , e => e.value
                                             , right(rmap(to, pab))
                                             ));
 
@@ -53,7 +54,9 @@ const Nothingʹ = prism( () => Maybe.empty()
                       );
 
 const Justʹ = prism( Maybe.of
-                   , maybe(Either.Left(Maybe.empty()), Either.Right)
+                   , maybe( Either.Left(Maybe.empty())
+                          , Either.Right
+                          )
                    );
 
 module.exports = { prism

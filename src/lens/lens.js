@@ -6,7 +6,8 @@ const { curry }         = require('../curry'),
       { Maybe }         = require('../maybe'),
       { tuple2 }        = require('../tuple'),
       { assoc }         = require('../assoc'),
-      { dissoc }        = require('../dissoc');
+      { dissoc }        = require('../dissoc'),
+      { has }           = require('../has');
 
 const lensʹ = curry((to, pab) => dimap( to
                                       , t => t.second()(t.first())
@@ -21,15 +22,15 @@ const _1 = first;
 
 const _2 = second;
 
-const atObject = k => lens( obj => has(k, obj) ? Maybe.of(obj[k]) : Maybe.empty()
-                          , (m, obj) => m.fold( x => assoc(k, x, obj)
-                                              , () => dissoc(k, obj)
-                                              )
-                          );
+const access = k => lens( obj => has(k, obj) ? Maybe.of(obj[k]) : Maybe.empty()
+                        , (m, obj) => m.fold( x => assoc(k, x, obj)
+                                            , () => dissoc(k, obj)
+                                            )
+                        );
 
 module.exports = { lensʹ
                  , lens
                  , _1
                  , _2
-                 , atObject
+                 , access
                  };

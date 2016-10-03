@@ -27,7 +27,7 @@ const apR = curry((lap, rap) => map(_ => id, lap).ap(rap));
 
 const foldMapOf = curry((M, p, f, s) => p(Forget(M)(f)).x(s));
 
-const foldOf = curry((M, p, s) => p(Forget(M)(id).x(s)));
+const foldOf = curry((M, p, s) => p(Forget(M)(id)).x(s));
 
 const preview = curry((p, s) => foldMapOf(First, p, compose(First, Maybe.Just), s).x);
 

@@ -2,7 +2,7 @@
 
 const { curry } = require('./curry');
 
-const extend = curry((k, o) => {
+const extend = curry((a, b) => {
     const rec = (a, b) => {
         for(let i in b) {
             a[i] = b[i];

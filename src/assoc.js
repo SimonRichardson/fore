@@ -1,6 +1,7 @@
 'use strict';
 
-const { curry } = require('./curry');
+const { curry }  = require('./curry'),
+      { extend } = require('./extend');
 
 const assoc = curry((k, v, o) => {
     const b = {};

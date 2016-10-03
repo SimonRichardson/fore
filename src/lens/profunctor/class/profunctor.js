@@ -11,13 +11,13 @@ const dimap = curry((a2b, c2d, pbc) => {
 
 const lmap = curry((a2b, pbc) => {
       return isFunction(pbc.lmap) ? pbc.lmap(a2b) :
-             isFunction(pbc.dimap) ? dimap(a2b, identity, pbc) :
+             isFunction(pbc.dimap) ? dimap(a2b, id, pbc) :
              compose(pbc, a2b);
 });
 
 const rmap = curry((b2c, pab) => {
       return isFunction(pab.rmap) ? pab.rmap(b2c) :
-             isFunction(pab.dimap) ? dimap(identity, b2c, pab) :
+             isFunction(pab.dimap) ? dimap(id, b2c, pab) :
              compose(b2c, pab);
 });
 
