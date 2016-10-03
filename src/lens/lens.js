@@ -5,7 +5,8 @@ const { curry }         = require('../curry'),
       { first, second } = require('./profunctor/class/strong'),
       { Maybe }         = require('../maybe'),
       { tuple2 }        = require('../tuple'),
-      { assoc, dissoc } = require('../object');
+      { assoc }         = require('../assoc'),
+      { dissoc }        = require('../dissoc');
 
 const lensʹ = curry((to, pab) => dimap( to
                                       , t => t.second()(t.first())

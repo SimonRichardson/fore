@@ -3,7 +3,7 @@
 const { id }         = require('../../../id'),
       { pipe }       = require('../../../pipe'),
       { curry }      = require('../../../curry'),
-      { isFunction } = require('../../../helpers'),
+      { isFunction } = require('../../../is'),
       { tuple2 }     = require('../../../tuple'),
       { rmap }       = require('./profunctor');
 

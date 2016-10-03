@@ -1,11 +1,12 @@
 'use strict';
 
-const { tagged }            = require('../tagged'),
-      { compose, identity } = require('../combinators');
+const { tagged }  = require('../tagged'),
+      { compose } = require('../compose'),
+      { id }      = require('../id');
 
 const Endo = tagged('x');
 
-Endo.empty = () => Endo(identity);
+Endo.empty = () => Endo(id);
 
 Endo.prototype.concat = function(x) {
     return Endo(compose(this.x, x.x));

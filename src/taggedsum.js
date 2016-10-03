@@ -1,6 +1,6 @@
 'use strict';
 
-const { constant } = require('./combinators'),
+const { constant } = require('./constant'),
       { tagged }   = require('./tagged');
 
 function taggedSum(constructors) {

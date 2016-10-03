@@ -1,9 +1,9 @@
 'use strict';
 
-const { Fold }   = require('./fold'),
-      { UnitM }  = require('../monoid/unit');
+const { foldOf } = require('./fold'),
+      { Unit }   = require('../monoid/unit');
 
-const view = Fold.foldOf(UnitM);
+const view = foldOf(Unit);
 
 module.exports = { view
                  };

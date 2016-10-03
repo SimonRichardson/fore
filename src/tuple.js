@@ -1,8 +1,8 @@
 'use strict';
 
-const { tagged }   = require('./cata'),
-      { curry }    = require('./curry'),
-      { identity } = require('./combinators');
+const { tagged } = require('./tagged'),
+      { curry }  = require('./curry'),
+      { id }     = require('./id');
 
 const Tuple = tagged('_1', '_2');
 

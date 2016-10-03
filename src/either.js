@@ -2,7 +2,7 @@
 
 const { taggedSum } = require('./taggedsum'),
       { curry }     = require('./curry'),
-      { isNull }    = require('./helpers');
+      { isNull }    = require('./is');
 
 const Either = taggedSum({ Left  : ['x']
                          , Right : ['x']
