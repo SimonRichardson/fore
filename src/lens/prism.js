@@ -1,6 +1,7 @@
 'use strict';
 
 const { curry }          = require('../curry'),
+      { equals }         = require('../equals'),
       { id }             = require('../id'),
       { left, right }    = require('./profunctor/class/choice'),
       { dimap, rmap }    = require('./profunctor/class/profunctor'),
@@ -26,7 +27,7 @@ const nearly = curry((x, f) => prismʹ( () => x
                                      ));
 
 const only = a =>  prismʹ( () => a
-                         , x => a === x ? Maybe.of(Unit) : Maybe.empty()
+                         , x => equals(a, x) ? Maybe.of(Unit) : Maybe.empty()
                          );
 
 const withPrism = curry((p, f) => {
