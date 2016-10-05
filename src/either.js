@@ -32,7 +32,7 @@ Either.prototype.right = function() {
     return this.x;
 };
 
-const either = curry((l, r) => isNull(r) ? Either.Left(l) : Either.Right(r));
+const either = curry((l, r, e) => e.fold(l, r));
 
 module.exports = { Either
                  , either

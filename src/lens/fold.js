@@ -23,17 +23,19 @@ const { curry }       = require('../curry'),
       { dimap }       = require('./profunctor/class/profunctor'),
       { Forget }      = require('./profunctor/forget');
 
+const DE = Dual(Endo);
+
 const apR = curry((lap, rap) => map(_ => id, lap).ap(rap));
 
-const foldMapOf = curry((M, p, f, s) => p(Forget(M)(f)).x(s));
+const foldMapOf = curry((M, p, f, s) => {
+    return p(Forget(M)(f)).x(s);
+});
 
 const foldOf = curry((M, p, s) => p(Forget(M)(id)).x(s));
 
 const preview = curry((p, s) => foldMapOf(First, p, compose(First, Maybe.Just), s).x);
 
-const foldrOf = curry((p, f, r, s) => foldMapOf(Endo, p, x => Endo(f(x)), s).x(r));
-
-const DE = Dual(Endo)
+const foldrOf = curry((p, f, r, s) => foldMapOf(Endo, p, compose(Endo, f), s).x(r));
 
 const foldlOf = curry((p, f, r, s) => foldMapOf(DE, p, compose(DE, Endo, flip(f)), s).x.x(r));
 

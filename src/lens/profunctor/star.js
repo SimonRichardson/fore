@@ -9,7 +9,7 @@ const Star = M => {
     const Star = tagged('x');
 
     Star.prototype.dimap = function(f, _) {
-        return Star(a => map(g, this.x(f(a))));
+        return Star(a => map(g, compose(this.x, f)));
     };
 
     Star.prototype.left = function() {
@@ -25,11 +25,11 @@ const Star = M => {
     };
 
     Star.prototype.first = function() {
-        return Star(t => this.x(t.first()).map(a => tuple2(a, t.second())));
+        return Star(t => map(a => tuple2(a, t.second()), this.x(t.first())));
     };
 
     Star.prototype.second = function() {
-        return Star(t => this.x(t.second()).map(a => tuple2(t.first(), a)));
+        return Star(t => map(a => tuple2(t.first(), a), this.x(t.second())));
     };
 
     Star.prototype.wander = function(f) {

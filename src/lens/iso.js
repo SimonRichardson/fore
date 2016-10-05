@@ -19,7 +19,7 @@ const withIso = curry((p, f) => {
     return f(ex.to, ex.from);
 });
 
-const under = curry((p, ts, b) => withIso(p, (sa, bt) => compose(sa, compose(ts, bt, b))));
+const under = curry((p, ts, b) => withIso(p, (sa, bt) => compose(sa, compose(ts, bt))(b)));
 
 const nonʹ = p => iso( m => m.fold(id, review(p, Unit))
                      , b => has(p, b) ? Maybe.empty() : Maybe.of(b)

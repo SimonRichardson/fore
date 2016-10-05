@@ -6,7 +6,7 @@ const { compose }    = require('../../../compose'),
       { curry }      = require('../../../curry');
 
 const dimap = curry((a2b, c2d, pbc) => {
-      return isFunction(pbc.dimap) ? pbc.dimap(a2b, c2d) : a => c2d(pbc(a2b(a)));
+      return isFunction(pbc.dimap) ? pbc.dimap(a2b, c2d) : compose(c2d, compose(pbc, a2b));
 });
 
 const lmap = curry((a2b, pbc) => {
@@ -21,7 +21,7 @@ const rmap = curry((b2c, pab) => {
              compose(b2c, pab);
 });
 
-const arr = curry((f) => rmap(f, id));
+const arr = curry((_, f) => rmap(f, id));
 
 module.exports = { dimap
                  , lmap

@@ -1,7 +1,8 @@
 'use strict';
 
-const { tagged } = require('../tagged'),
-      { Maybe }  = require('../maybe');
+const { tagged }   = require('../tagged'),
+      { constant } = require('../constant'),
+      { Maybe }    = require('../maybe');
 
 
 const Last = tagged('x')
@@ -9,7 +10,7 @@ const Last = tagged('x')
 Last.empty = () => Last(Maybe.Nothing);
 
 Last.prototype.concat = function(x) {
-    return this.x.fold(() => x, () => Last(this.x));
+    return x.x.fold(constant(other), constant(Last(this.x)));
 };
 
 module.exports = { Last

@@ -11,7 +11,7 @@ const set = curry((l, b, s) => over(l, constant(b), s));
 
 const setJust = curry((l, b, s) => set(l, Maybe.Just(b), s));
 
-const mapped = curry((f, o) => map(f, o));
+const mapped = map;
 
 module.exports = { over
                  , set: set

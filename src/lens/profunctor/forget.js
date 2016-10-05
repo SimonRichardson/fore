@@ -13,11 +13,11 @@ const Forget = M => {
     };
 
     Forget.prototype.left = function() {
-        return Forget(either(this.x, () => M.empty()));
+        return Forget(either(this.x, M.empty));
     };
 
     Forget.prototype.right = function() {
-        return Forget(either(() => M.empty(), this.x));
+        return Forget(either(M.empty, this.x));
     };
 
     Forget.prototype.first = function() {
